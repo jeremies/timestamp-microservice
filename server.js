@@ -26,12 +26,20 @@ app.get("/api/hello", function (req, res) {
 
 app.get("/api/timestamp/:date_string", function (req, res) {
   var date_string = req.params["date_string"];
+  
+  if (/[0-9])
   var date = new Date(date_string);
   
-  var response_date = {}
+  var response_date = {};
   if (date.toUTCString() == "Invalid Date") {
-    
+    response_date = { unix: null, utc: date.toUTCString()};
   }
+  
+  else {
+    response_date = { unix: date.getTime(), utc: date.toUTCString() };
+  }
+  
+  res.json(response_date);
 });
 
 // listen for requests :)
