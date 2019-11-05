@@ -27,10 +27,10 @@ app.get("/api/hello", function (req, res) {
 app.get("/api/timestamp/:date_string?", function (req, res) {
   var date_string = req.params["date_string"];
   
-  console.log
+  console.log("input: " + date_string);
   var date;
   var number_regexp = /^\d+$/;
-  if (date_string == "") {
+  if (date_string == undefined) {
     date = new Date();
   }
   else if (number_regexp.test(date_string)) {
