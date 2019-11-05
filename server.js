@@ -24,21 +24,26 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
-app.get("/api/timestamp/:date_string", function (req, res) {
+app.get("/api/timestamp/:date_string?", function (req, res) {
   var date_string = req.params["date_string"];
   
+  console.log
   var date;
+  var number_regexp = /^\d+$/;
   if (date_string == "") {
     date = new Date();
   }
-  else if (date_string)
-  var date = new Date(date_string);
+  else if (number_regexp.test(date_string)) {
+    date = new Date(Number(date_string));
+  }
+  else {
+    var date = new Date(date_string);  
+  }
   
   var response_date = {};
   if (date.toUTCString() == "Invalid Date") {
     response_date = { unix: null, utc: date.toUTCString()};
   }
-  
   else {
     response_date = { unix: date.getTime(), utc: date.toUTCString() };
   }
